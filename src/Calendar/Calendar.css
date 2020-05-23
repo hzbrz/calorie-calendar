@@ -1,0 +1,62 @@
+.tdDefaultStyle {
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 35px;
+}
+
+.xStyle {
+  border: 2px solid red;
+  font-size: 64px;
+  font-weight: 530;
+  color: red;
+  padding-right: 24px;
+  padding-left: 24px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.parentDiv {
+  margin-top: 40px;
+  text-align: center
+}
+
+.floating-table {
+  display: inline-block;
+}
+
+#middleTable {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.captionStyle {
+  margin-left: 262px;
+  font-size: larger;
+  font-weight: 500;
+  font-style: italic;
+  color: brown;
+}
+
+.close {
+  background: teal;
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+.close:after {
+  content: '';
+  height: 60px;
+  border-left: 2px solid #fff;
+  position: absolute;
+  transform: rotate(45deg);
+  left: 28px;
+}
+
+.close:before {
+  content: '';
+  height: 60px;
+  border-left: 2px solid #fff;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 28px;
+}
