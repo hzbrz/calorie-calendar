@@ -251,12 +251,12 @@ def login():
   print(data)
   user_query = {"email": data["email"]}
   user = user_coll.find(user_query)
-  user_arr = list(user)
-  print(user_arr)
-  if len(user_arr) == 0:
+  # user_arr = list(user)
+  # print(user_arr)
+  if user.count() == 0:
     return ({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
 
-  for u in user_arr:
+  for u in user:
     print(u)
     del u["_id"]
     del u["email"]
