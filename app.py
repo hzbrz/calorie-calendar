@@ -6,12 +6,19 @@ from dateutil import relativedelta
 from bson import ObjectId
 import json
 
+with open("monog.txt", 'r') as infile:
+  mongopass = infile.read()
+
 # create a collection with 90 days with 3 months seperated with 30 days
 
 app = Flask(__name__)
 # look how easy adding CORS policy is to a flask app!! amazing!
 CORS(app)
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+# myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+
+myclient = pymongo.MongoClient("mongodb+srv://hz1:" + mongopass + "@caloriecluster-bmq1f.mongodb.net/test?retryWrites=true&w=majority")
+db = myclient.test
+print(db)
 mydb = myclient["calendarDB"]
 calendar_coll = mydb["calendars"]
 calorie_coll = mydb["calories"]
@@ -253,6 +260,6 @@ def login():
 
 
 
-# if __name__ == "__main__":
-#   app.run(debug=True)
+if __name__ == "__main__":
+  app.run()
 
