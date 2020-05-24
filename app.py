@@ -255,8 +255,10 @@ def login():
     return jsonify({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
 
   for u in user:
+    print(u)
     del u["_id"]
     del u["email"]
+    print(u)
     return jsonify({ "meassage": "Login successful", "user_data": u })
 
 
