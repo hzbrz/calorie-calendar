@@ -40,7 +40,7 @@ def index():
 
 
 # --------------- CALENDAR METHODS -----------------------------
-@app.route("/calendar/", methods=["GET"])
+@app.route("/calendar", methods=["GET"])
 def create_calendar():
   calendar_dict = {
     month_name: {
@@ -64,7 +64,7 @@ def create_calendar():
   response = jsonify({"message": "Calendar created!", "calendar_id": str(calendar_entry.inserted_id)})
   return response
 
-@app.route("/calorie/", methods=["POST"])
+@app.route("/calorie", methods=["POST"])
 def create_calorie():
   calorie_dict = {
     month_name: {},
@@ -76,7 +76,7 @@ def create_calorie():
   response = jsonify({"message": "Calorie Calendar created!", "calorie_id": str(calorie_entry.inserted_id)})
   return response
 
-@app.route("/calendar/<calendar_id>/", methods=["GET"])
+@app.route("/calendar/<calendar_id>", methods=["GET"])
 def get_calendar(calendar_id):
   # tunring the str id to ObjectId since that is the format mongodb id's are stored as
   calendar_id = ObjectId(calendar_id)
@@ -98,7 +98,7 @@ def get_calendar(calendar_id):
     return jsonify({ "message": "Calendar Found!", "Calendar": new_calendar })
 
 
-@app.route("/calendar/<calendar_id>/", methods=["POST"])
+@app.route("/calendar/<calendar_id>", methods=["POST"])
 def mark_calendar(calendar_id):
   data = request.get_json()
   
@@ -123,7 +123,7 @@ def mark_calendar(calendar_id):
   return jsonify({"message": "calendar marked", "update": updated_month})
 
 # same as the POST method except it changes the "X" to the number of the day thus "unmarking the calendar"
-@app.route("/calendar/<calendar_id>/", methods=["PUT"])
+@app.route("/calendar/<calendar_id>", methods=["PUT"])
 def unmark_calendar(calendar_id):
   data = request.get_json()
   
@@ -158,7 +158,7 @@ def calorie_getter(calorie_id):
     del cal["_id"]
     return cal
 
-@app.route("/calorie/<calendar_id>/<calorie_id>/", methods=["POST"])
+@app.route("/calorie/<calendar_id>/<calorie_id>", methods=["POST"])
 def mark_calorie(calendar_id, calorie_id):
   calorie_goal = request.get_json()["calorie"]
 
@@ -201,7 +201,7 @@ def drop_collection():
 # --------------- END CALENDAR METHODS -----------------------------
 
 # -------------------------- USER METHODS -----------------------------
-@app.route("/user/", methods=["POST"])
+@app.route("/user", methods=["POST"])
 def signup():
   data = request.get_json()
 
@@ -243,7 +243,7 @@ def signup():
     return jsonify({ "message": "signup UNsuccessful, user already exists" })
 
 
-@app.route("/login/", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def login():
   data = request.get_json()
 
