@@ -5,6 +5,7 @@ import datetime
 from dateutil import relativedelta
 from bson import ObjectId
 import json
+import base64
 
 with open("monog.txt", 'r') as infile:
   mongopass = infile.read()
@@ -206,25 +207,36 @@ def drop_collection():
 @app.route("/user", methods=["POST"])
 def signup():
   data = request.get_json()
-  print(data)
 
   # dictionary to store the password
   update_dict = {}
   # reading from the password file and then updating with new values from client side data
-  with open("passwords.json", 'r') as infile:
+  with open("justanotherfile.json", 'r') as infile:
     file_data = infile.read()
     if file_data == "" or file_data == "{}":
       print("empty")
       update_dict[data["email"]] = data["password"]
     else:
-      json_data = json.loads(file_data)
+      # decoding the encoded bytes read from file
+      read_bytes = base64.b64decode(file_data)
+      # decoding into ascii
+      read_ascii = read_bytes.decode('ascii')
+      # formatting single quotes with double since thats the format json requires
+      read_ascii = read_ascii.replace("'", "\"")
+      # turning the read data into a dictionary using the loads() func
+      json_data = json.loads(read_ascii)
       for k, v in json_data.items():
         update_dict[k] = v
-      
       update_dict[data["email"]] = data["password"]
-  # writing to the JSON file
-  with open("passwords.json", 'w') as outfile:
-    json.dump(update_dict, outfile, indent=4)
+  
+  # turning dict into string so I can encode into ascii and then encode into bytes
+  update_string = str(update_dict)
+  ascii_dict = update_string.encode('ascii')
+  output_byte = base64.b64encode(ascii_dict)
+
+  # writing bytes to the JSON file
+  with open("justanotherfile.json", 'wb') as outfile:
+    outfile.write(output_byte)
 
   # then deleting the password
   del data["password"]
@@ -268,5 +280,5 @@ def login():
 
 
 if __name__ == "__main__":
-  app.run(threaded=True, port=5000)
+  app.run(debug=True, port=5000)
 
