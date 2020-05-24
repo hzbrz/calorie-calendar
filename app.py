@@ -16,6 +16,8 @@ app = Flask(__name__)
 CORS(app)
 # myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
+# if heroku request times out that means that the mongodb atlsat network access does not have permission for that IP address
+# In this case I just whitelist by adding 0.0.0.0/0 which allows all connections 
 myclient = pymongo.MongoClient("mongodb+srv://hz1:" + mongopass + "@caloriecluster-bmq1f.mongodb.net/test?retryWrites=true&w=majority")
 mydb = myclient["calendarDB"]
 calendar_coll = mydb["calendars"]
@@ -40,7 +42,7 @@ def index():
 
 
 # --------------- CALENDAR METHODS -----------------------------
-@app.route("/calendar", methods=["GET"])
+@app.route("/calendar", methods=["POST"])
 def create_calendar():
   calendar_dict = {
     month_name: {
