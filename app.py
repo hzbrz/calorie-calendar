@@ -17,8 +17,6 @@ CORS(app)
 # myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 myclient = pymongo.MongoClient("mongodb+srv://hz1:" + mongopass + "@caloriecluster-bmq1f.mongodb.net/test?retryWrites=true&w=majority")
-db = myclient.test
-print(db)
 mydb = myclient["calendarDB"]
 calendar_coll = mydb["calendars"]
 calorie_coll = mydb["calories"]
@@ -34,13 +32,14 @@ month_name_one = next_month.strftime("%B")
 month_name_two = next_month_two.strftime("%B")
 
 
-# --------------- CALENDAR METHODS -----------------------------
 
 # ----------------------- HEROKU TEST ROUTE ------------------------
 @app.route("/")
 def index():
   return '<h1>HEROKU DEPLOYED</h1>'
 
+
+# --------------- CALENDAR METHODS -----------------------------
 @app.route("/calendar", methods=["POST"])
 def create_calendar():
   calendar_dict = {
