@@ -204,6 +204,7 @@ def drop_collection():
 @app.route("/user", methods=["POST"])
 def signup():
   data = request.get_json()
+  print(data)
 
   # dictionary to store the password
   update_dict = {}
@@ -247,6 +248,7 @@ def signup():
 def login():
   data = request.get_json()
 
+  print(data)
   user_query = {"email": data["email"]}
   user = user_coll.find(user_query)
   if user.count() == 0:
