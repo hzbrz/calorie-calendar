@@ -253,16 +253,15 @@ def login():
   user = user_coll.find(user_query)
   user_arr = list(user)
   print(user_arr)
-  return jsonify({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
-  # if user.count() == 0:
-  #   return ({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
+  if len(user_arr) == 0:
+    return ({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
 
-  # for u in user:
-  #   print(u)
-  #   del u["_id"]
-  #   del u["email"]
-  #   print(u)
-  #   return ({ "meassage": "Login successful", "user_data": u })
+  for u in user_arr:
+    print(u)
+    del u["_id"]
+    del u["email"]
+    print(u)
+    return ({ "meassage": "Login successful", "user_data": u })
 
 
 
