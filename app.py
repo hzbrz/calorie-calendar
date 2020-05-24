@@ -252,8 +252,8 @@ def login():
   user_query = {"email": data["email"]}
   user = user_coll.find(user_query)
   print(user)
-  if user.count() == 0:
-    return jsonify({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
+  # if user.count() == 0:
+  #   return jsonify({ "message": "Login unsuccessful, user not found", "user_data": "redirect" })
 
   for u in user:
     print(u)
