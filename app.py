@@ -29,6 +29,11 @@ month_name_two = next_month_two.strftime("%B")
 
 # --------------- CALENDAR METHODS -----------------------------
 
+# ----------------------- HEROKU TEST ROUTE ------------------------
+@app.route("/")
+def index():
+  return '<h1>HEROKU DEPLOYED</h1>'
+
 @app.route("/calendar", methods=["POST"])
 def create_calendar():
   calendar_dict = {
