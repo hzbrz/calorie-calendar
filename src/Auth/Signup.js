@@ -43,7 +43,7 @@ class Signup extends Component {
 
 
   formSubmitHandler = () => {
-    fetch("http://127.0.0.1:5000/calendar", {
+    fetch("https://carb-api.herokuapp.com/calendar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     }).then(res => {
@@ -58,7 +58,7 @@ class Signup extends Component {
       return res.json()
     })
       .then(resData => {
-        fetch("http://127.0.0.1:5000/calorie", {
+        fetch("https://carb-api.herokuapp.com/calorie", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         }).then(res => {
@@ -73,7 +73,7 @@ class Signup extends Component {
           return res.json()
         })
           .then(calorieData => {
-            fetch("http://127.0.0.1:5000/user", {
+            fetch("https://carb-api.herokuapp.com/user", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

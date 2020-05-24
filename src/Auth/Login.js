@@ -43,7 +43,7 @@ class Login extends Component {
 
 
   formSubmitHandler = () => {
-    fetch("http://127.0.0.1:5000/login", {
+    fetch("https://carb-api.herokuapp.com/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -51,6 +51,7 @@ class Login extends Component {
         password: this.state.formControls.password.value,
       })
     }).then(res => {
+      console.log(res.status)
       if (res.status === 422) {
         throw new Error(
           "Validation failed."

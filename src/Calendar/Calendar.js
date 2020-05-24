@@ -39,7 +39,7 @@ class Calendar extends Component {
     console.log(this.props)
     if (this.props.location.state === undefined) { this.nextPath("/") }
     else {
-      fetch("http://127.0.0.1:5000/calorie/" +  this.props.location.state.calendar_id + "/" + this.props.location.state.calorie_id, {
+      fetch("https://carb-api.herokuapp.com/calorie/" +  this.props.location.state.calendar_id + "/" + this.props.location.state.calorie_id, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -64,7 +64,7 @@ class Calendar extends Component {
         // this statement runs if there is no data found in the db
         if(resData.message === "Calorie calendar not found!") { this.nextPath("/") }
 
-        fetch("http://127.0.0.1:5000/calendar/" + this.props.location.state.calendar_id, {
+        fetch("https://carb-api.herokuapp.com/calendar/" + this.props.location.state.calendar_id, {
           method: "GET"
         }).then(res => {
           if (res.status === 422) {
@@ -107,7 +107,7 @@ class Calendar extends Component {
     // console.log(day)
     // checking if the day is marked, if not we POST and mark the day else we PUT and unmark
     if (day !== "X") {
-      fetch("http://127.0.0.1:5000/calendar/" + this.props.location.state.calendar_id, {
+      fetch("https://carb-api.herokuapp.com/calendar/" + this.props.location.state.calendar_id, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -136,7 +136,7 @@ class Calendar extends Component {
         })
         .catch(err => console.log("resData error", err))
     } else {
-      fetch("http://127.0.0.1:5000/calendar/" + this.props.location.state.calendar_id, {
+      fetch("https://carb-api.herokuapp.com/calendar/" + this.props.location.state.calendar_id, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -168,7 +168,7 @@ class Calendar extends Component {
 
   // debug method to drop the collections and test out the serve/client persistance/connection
   dropCollection = () => {
-    fetch("http://127.0.0.1:5000/drop", {
+    fetch("https://carb-api.herokuapp.com/drop", {
       method: "GET"
     }).then(res => {
       return res.json()
