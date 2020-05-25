@@ -208,38 +208,12 @@ def drop_collection():
 def signup():
   data = request.get_json()
 
-  # dictionary to store the password
-  update_dict = {}
-  # reading from the password file and then updating with new values from client side data
-  with open("justanotherfile.json", 'r') as infile:
-    file_data = infile.read()
-    if file_data == "" or file_data == "{}":
-      print("empty")
-      update_dict[data["email"]] = data["password"]
-    else:
-      # decoding the encoded bytes read from file
-      read_bytes = base64.b64decode(file_data)
-      # decoding into ascii
-      read_ascii = read_bytes.decode('ascii')
-      # formatting single quotes with double since thats the format json requires
-      read_ascii = read_ascii.replace("'", "\"")
-      # turning the read data into a dictionary using the loads() func
-      json_data = json.loads(read_ascii)
-      for k, v in json_data.items():
-        update_dict[k] = v
-      update_dict[data["email"]] = data["password"]
-  
-  # turning dict into string so I can encode into ascii and then encode into bytes
-  update_string = str(update_dict)
+  pass_string = data["password"]
+  # turning into string so I can encode into ascii and then encode into bytes
+  update_string = str(pass_string)
   ascii_dict = update_string.encode('ascii')
   output_byte = base64.b64encode(ascii_dict)
-
-  # writing bytes to the JSON file
-  with open("justanotherfile.json", 'wb') as outfile:
-    outfile.write(output_byte)
-
-  # then deleting the password
-  del data["password"]
+  data["password"] = output_byte 
 
   calorie_id = ObjectId(data["calorie_id"])
   calendar_id = ObjectId(data["calendar_id"])
@@ -249,7 +223,8 @@ def signup():
   # cehcking if the user already exists and signing up the user if he/she doesnt exist
   if user.count() == 0:
     user_entry = user_coll.insert_one(data)
-    return jsonify({ "message": "signup successful", "user_id": str(user_entry.inserted_id) })
+    return jsonify({ "message": "signup successful" })
+  # else the user doesnt get created and none of the tables get created
   else:
     calorie_delete_query = { "_id": calorie_id }
     calorie_coll.delete_one(calorie_delete_query)
@@ -280,5 +255,5 @@ def login():
 
 
 if __name__ == "__main__":
-  app.run(debug=True, port=5000)
+  app.run()
 
