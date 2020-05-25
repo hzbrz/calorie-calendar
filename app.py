@@ -247,6 +247,7 @@ def login():
 
   for u in user:
     print(u)
+    del u["password"]
     del u["_id"]
     del u["email"]
     print(u)
