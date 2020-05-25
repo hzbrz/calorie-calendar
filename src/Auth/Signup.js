@@ -95,7 +95,8 @@ class Signup extends Component {
               return res.json()
             })
               .then(signUpData => {
-                console.log(signUpData)
+                if (signUpData.message === "signup successful") { this.nextPath("/") }
+                else { this.nextPath("/signup") }
               })
               .catch(err => console.log("SIGNUPUP POST FETCH ", err))
           })
