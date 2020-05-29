@@ -195,11 +195,11 @@ def mark_calorie(calendar_id, calorie_id):
   return jsonify({ "message": "calorie marked"})
 
 # debug mode method
-@app.route("/drop", methods=["GET"])
-def drop_collection():
-  calendar_coll.drop()
+# @app.route("/drop", methods=["GET"])
+# def drop_collection():
+#   calendar_coll.drop()
 
-  return jsonify({ "message": "collection dropped!" })
+#   return jsonify({ "message": "collection dropped!" })
 
 # --------------- END CALENDAR METHODS -----------------------------
 
