@@ -167,16 +167,16 @@ class Calendar extends Component {
   }
 
   // debug method to drop the collections and test out the serve/client persistance/connection
-  dropCollection = () => {
-    fetch("https://carb-api.herokuapp.com/drop", {
-      method: "GET"
-    }).then(res => {
-      return res.json()
-    })
-      .then(resData => {
-        console.log(resData);
-      })
-  }
+  // dropCollection = () => {
+  //   fetch("https://carb-api.herokuapp.com/drop", {
+  //     method: "GET"
+  //   }).then(res => {
+  //     return res.json()
+  //   })
+  //     .then(resData => {
+  //       console.log(resData);
+  //     })
+  // }
 
 
   render() {
