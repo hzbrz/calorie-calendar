@@ -61,6 +61,7 @@ class Calendar extends Component {
         return res.json();
       })
       .then(resData => {
+        console.log("message: ", resData.message)
         // this statement runs if there is no data found in the db
         if(resData.message === "Calorie calendar not found!") { this.nextPath("/") }
 
