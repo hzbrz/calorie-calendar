@@ -180,27 +180,20 @@ def mark_calorie(calendar_id, calorie_id):
 
   for c in calendar:
     for month in months:
-      print(month)
       for day in list(data[month].keys()):
-        if int(calorie_goal)+100 >= int(data[month][day]["calories"]):
+        if data[month][day]["calories"] == "--":
+          return jsonify({ "message": "User did not log/UI error" })
+        elif int(calorie_goal)+100 >= int(data[month][day]["calories"]):
           c[month][day] = "X"
         else:
           c[month][day] = int(day)
-        
+      
       update = calendar_coll.find_one_and_update(
         {"_id": c["_id"]},
         {"$set": { month: c[month] } }
       )
 
   return jsonify({ "message": "calorie marked"})
-
-# debug mode method
-# @app.route("/drop", methods=["GET"])
-# def drop_collection():
-#   calendar_coll.drop()
-
-#   return jsonify({ "message": "collection dropped!" })
-
 # --------------- END CALENDAR METHODS -----------------------------
 
 # -------------------------- USER METHODS -----------------------------
