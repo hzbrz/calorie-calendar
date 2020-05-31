@@ -164,8 +164,10 @@ def calorie_getter(calorie_id):
 @app.route("/calorie/<calendar_id>/<calorie_id>", methods=["POST"])
 def mark_calorie(calendar_id, calorie_id):
   calorie_goal = request.get_json()["calorie"]
+  print("CALORIE GOAL ", calorie_goal)
 
   data = calorie_getter(calorie_id)
+  print("DATA FROM DB: ", data)
   # if the id was wrong or a calorie calendar was not found in the getter func
   if data:
     months = list(data.keys())
@@ -178,11 +180,14 @@ def mark_calorie(calendar_id, calorie_id):
   if calendar.count() == 0:
     return jsonify({"message": "Calendar not found"})
 
+  # list to log the carb manager UI error days:
+  ui_days = []
   for c in calendar:
     for month in months:
       for day in list(data[month].keys()):
         if data[month][day]["calories"] == "--":
-          return jsonify({ "message": "User did not log/UI error" })
+          ui_days.append(day)
+          ui_error = "Cannot mark calendar due to UI error day: " + str(ui_days)
         elif int(calorie_goal)+100 >= int(data[month][day]["calories"]):
           c[month][day] = "X"
         else:
@@ -193,7 +198,7 @@ def mark_calorie(calendar_id, calorie_id):
         {"$set": { month: c[month] } }
       )
 
-  return jsonify({ "message": "calorie marked"})
+  return jsonify({ "message": "calorie marked", "error": ui_error})
 # --------------- END CALENDAR METHODS -----------------------------
 
 # -------------------------- USER METHODS -----------------------------
@@ -249,5 +254,5 @@ def login():
 
 
 if __name__ == "__main__":
-  app.run()
+  app.run(debug=True)
 
