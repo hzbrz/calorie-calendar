@@ -63,11 +63,13 @@ class Login extends Component {
       return res.json()
     })
       .then(resData => {
+        console.log("FROM LOGIN PAGE: ", resData)
         if (resData.user_data === "redirect") { this.nextPath("/signup") }
         else { 
           this.nextPath("/calendar", { "calendar_id": resData.user_data["calendar_id"], 
-          "calorie_id": resData.user_data["calorie_id"],
-          "calorie": resData.user_data["calorie"] }) 
+                                        "calorie_id": resData.user_data["calorie_id"],
+                                        "calorie": resData.user_data["calorie"] }
+                      ) 
         }
       })
       .catch(err => console.log("LOGIN POST FAILED", err))

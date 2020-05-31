@@ -61,7 +61,7 @@ class Calendar extends Component {
         return res.json();
       })
       .then(resData => {
-        console.log("message: ", resData.message)
+        console.log("message: ", resData.error)
         // this statement runs if there is no data found in the db
         if(resData.message === "Calorie calendar not found!") { this.nextPath("/") }
 
@@ -191,7 +191,8 @@ class Calendar extends Component {
         {
           this.state.generated ?
             <div>
-              <h1>GOAL CALENDAR: {this.props.location.state.calorie}</h1>
+              <h1>GOAL CALENDAR</h1>
+              <h4>GOAL CAL: {this.props.location.state.calorie}</h4>
               {/* <button onClick={this.dropCollection}>Debug: drop collection</button> */}
               <br />
               <br />
